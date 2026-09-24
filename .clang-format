@@ -1,0 +1,14 @@
+# Matches the style the sources are already written in: running clang-format
+# over src/, simulation/ and tests/ with this config is a no-op.
+---
+Language: Cpp
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 100
+AccessModifierOffset: -4
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Inline
+AlwaysBreakTemplateDeclarations: Yes
+DerivePointerAlignment: false
+PointerAlignment: Left
+PenaltyBreakBeforeFirstCallParameter: 100

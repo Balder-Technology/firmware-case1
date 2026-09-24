@@ -1,0 +1,20 @@
+{
+  "name": "firmware-interview-case",
+  "build": { "dockerfile": "Dockerfile" },
+  "remoteUser": "ubuntu",
+  "postCreateCommand": "cmake --preset debug",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools"
+      ],
+      "settings": {
+        "cmake.configureOnOpen": true,
+        "C_Cpp.intelliSenseEngine": "disabled"
+      }
+    }
+  }
+}

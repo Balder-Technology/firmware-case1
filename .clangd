@@ -1,0 +1,5 @@
+# Points clangd, the C++ language server, at the build's compile commands,
+# which CMake writes when the debug preset is configured:
+#   cmake --preset debug
+CompileFlags:
+  CompilationDatabase: build/debug

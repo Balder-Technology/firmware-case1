@@ -1,0 +1,90 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+      "name": "debug",
+      "displayName": "Debug",
+      "description": "Debug build with the strict warning set. The default.",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "release",
+      "displayName": "Release",
+      "description": "Optimised build.",
+      "inherits": "base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "sanitizers",
+      "displayName": "Address and undefined-behaviour sanitizers",
+      "description": "Debug build with -fsanitize=address,undefined.",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BALDER_TRACKER_SANITIZERS": "ON"
+      }
+    },
+    {
+      "name": "strict",
+      "displayName": "Warnings as errors",
+      "description": "Debug build that fails on any warning, for CI and pre-commit checks.",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BALDER_TRACKER_WARNINGS_AS_ERRORS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug", "configurePreset": "debug" },
+    { "name": "release", "configurePreset": "release" },
+    { "name": "sanitizers", "configurePreset": "sanitizers" },
+    { "name": "strict", "configurePreset": "strict" }
+  ],
+  "testPresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "output": { "outputOnFailure": true }
+    },
+    { "name": "debug", "inherits": "base", "configurePreset": "debug" },
+    { "name": "release", "inherits": "base", "configurePreset": "release" },
+    { "name": "sanitizers", "inherits": "base", "configurePreset": "sanitizers" },
+    { "name": "strict", "inherits": "base", "configurePreset": "strict" }
+  ],
+  "workflowPresets": [
+    {
+      "name": "build",
+      "displayName": "Configure and build (debug)",
+      "steps": [
+        { "type": "configure", "name": "debug" },
+        { "type": "build", "name": "debug" }
+      ]
+    },
+    {
+      "name": "test",
+      "displayName": "Configure, build and run the tests (debug)",
+      "steps": [
+        { "type": "configure", "name": "debug" },
+        { "type": "build", "name": "debug" },
+        { "type": "test", "name": "debug" }
+      ]
+    },
+    {
+      "name": "strict",
+      "displayName": "Configure, build and test with warnings as errors",
+      "steps": [
+        { "type": "configure", "name": "strict" },
+        { "type": "build", "name": "strict" },
+        { "type": "test", "name": "strict" }
+      ]
+    }
+  ]
+}

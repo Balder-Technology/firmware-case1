@@ -1,0 +1,5 @@
+tracker
+run_tests
+build/
+compile_commands.json
+core.*
